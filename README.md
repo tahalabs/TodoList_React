@@ -13,6 +13,8 @@ No backend, no database – purely frontend for now, perfect for learning and sh
 - ✅ **Modal form** for adding tasks (clean UI, no clutter)
 - ✅ Fully **responsive design** (mobile-first)
 - ✅ State management with React hooks (`useState`)
+- ✅ Add `localStorage` persistence
+- ✅ Filter tasks (All / Completed / Incomplete)
 - ✅ Clean component architecture (`TaskContainer`, `TaskForm`, `TaskList`, `TaskItem`, `AddTaskModal`)
 
 ## 🛠️ Tech Stack
@@ -34,9 +36,6 @@ The layout adjusts labels, padding, and font sizes for the best user experience.
 3. `npm run dev`
 
 ## 📌 Future Improvements
-
-- [ ] Add `localStorage` persistence
-- [ ] Filter tasks (All / Completed / Incomplete)
 - [ ] Search by title
 - [ ] Edit task
 - [ ] Dark mode
