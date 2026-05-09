@@ -1,0 +1,45 @@
+# 📝 Task Manager App (React + Tailwind)
+
+A sleek and responsive task management application built from scratch with **React** and **Tailwind CSS**.  
+No backend, no database – purely frontend for now, perfect for learning and showcasing modern UI skills.
+
+## 🚀 Features
+
+- ✅ Add tasks with **title, date, time, and priority** (Low / Medium / High)
+- ✅ Tasks appear with **color-coded priority border** (green/yellow/red)
+- ✅ **Toggle completion** (checkbox with strikethrough and background color change)
+- ✅ **Delete** tasks
+- ✅ **Modal form** for adding tasks (clean UI, no clutter)
+- ✅ Fully **responsive design** (mobile-first)
+- ✅ State management with React hooks (`useState`)
+- ✅ Clean component architecture (`TaskContainer`, `TaskForm`, `TaskList`, `TaskItem`, `AddTaskModal`)
+
+## 🛠️ Tech Stack
+
+- **React** (Vite)
+- **Tailwind CSS**
+- **JavaScript (ES6+)**
+
+## 📱 Responsive
+
+Works seamlessly on mobile, tablet, and desktop.  
+The layout adjusts labels, padding, and font sizes for the best user experience.
+
+
+## 🚦 How to Run
+
+1. Clone the repo
+2. `npm install`
+3. `npm run dev`
+
+## 📌 Future Improvements
+
+- [ ] Add `localStorage` persistence
+- [ ] Filter tasks (All / Completed / Incomplete)
+- [ ] Search by title
+- [ ] Edit task
+- [ ] Dark mode
+
+---
+
+Made with ❤️ by Mohammad Taha
