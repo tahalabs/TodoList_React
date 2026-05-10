@@ -1,4 +1,4 @@
-const TaskItem = ({ task, onToggle, onDelete }) => {
+const TaskItem = ({ task, onToggle, onDelete, onEdit }) => {  // ← onEdit اضافه شد
     const priorityColors = {
         low: "border-l-green-400",
         medium: "border-l-yellow-400",
@@ -21,10 +21,11 @@ const TaskItem = ({ task, onToggle, onDelete }) => {
                     onChange={() => onToggle(task.id)}
                     className="w-5 h-5 shrink-0 cursor-pointer"
                 />
-                {/* عنوان و تاریخ/زمان */}
                 <div className="flex flex-col min-w-0">
                     <span
-                        className={`text-base sm:text-lg wrap-break-word ${task.completed ? "line-through text-gray-400" : "text-gray-900"
+                        className={`text-base sm:text-lg break-words ${task.completed
+                                ? "line-through text-gray-400"
+                                : "text-gray-900"
                             }`}
                     >
                         {task.title}
@@ -39,13 +40,21 @@ const TaskItem = ({ task, onToggle, onDelete }) => {
                 </div>
             </div>
 
-            {/* دکمه حذف */}
-            <button
-                onClick={() => onDelete(task.id)}
-                className="text-red-500 hover:text-red-700 text-sm sm:text-base shrink-0 ml-2 transition cursor-pointer"
-            >
-                حذف
-            </button>
+            {/* بخش راست: دکمه‌های ویرایش و حذف */}
+            <div className="flex items-center gap-2 shrink-0 ml-2">
+                <button
+                    onClick={() => onEdit(task)}
+                    className="text-blue-500 hover:text-blue-700 text-sm sm:text-base transition cursor-pointer"
+                >
+                    ویرایش
+                </button>
+                <button
+                    onClick={() => onDelete(task.id)}
+                    className="text-red-500 hover:text-red-700 text-sm sm:text-base transition cursor-pointer"
+                >
+                    حذف
+                </button>
+            </div>
         </li>
     );
 };

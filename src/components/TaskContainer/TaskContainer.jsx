@@ -10,6 +10,8 @@ const TaskContainer = () => {
     });
     const [filter, setFilter] = useState("all");
 
+    const [editingTask, setEditingTask] = useState(null);
+
     const [isModalOpen, setIsModalOpen] = useState(false);
 
 
@@ -35,6 +37,11 @@ const TaskContainer = () => {
         setTasks((prevTasks) => [...prevTasks, newTask]);
     };
 
+    const handleEdit = (task) => {
+        setEditingTask(task);
+        setIsModalOpen(true);
+    };
+
     const toggleTask = (id) => {
         setTasks((prevTasks) =>
             prevTasks.map((task) =>
@@ -47,6 +54,33 @@ const TaskContainer = () => {
         setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
     };
 
+    const handleSave = (taskData) => {
+        if (editingTask) {
+            setTasks((prev) =>
+                prev.map((task) =>
+                    task.id === editingTask.id ? { ...task, ...taskData } : task
+                )
+            );
+        } else {
+            const newTask = {
+                id: Date.now(),
+                title: taskData.title,
+                date: taskData.date,
+                time: taskData.time,
+                priority: taskData.priority || "undefind",
+                completed: false,
+            };
+            setTasks((prev) => [...prev, newTask]);
+        }
+        setIsModalOpen(false);
+        setEditingTask(null);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+        setEditingTask(null);
+    };
+
     return (
         <div className="min-h-screen bg-gray-100 p-4 md:p-6 max-w-2xl mx-auto">
             <h1 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8">
@@ -57,8 +91,8 @@ const TaskContainer = () => {
                 <button
                     onClick={() => setFilter("all")}
                     className={`px-4 py-2 rounded text-sm sm:text-base font-medium cursor-pointer transition-all ${filter === "all"
-                            ? "bg-blue-500 text-white shadow"
-                            : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                        ? "bg-blue-500 text-white shadow"
+                        : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                         }`}
                 >
                     All
@@ -66,8 +100,8 @@ const TaskContainer = () => {
                 <button
                     onClick={() => setFilter("incomplete")}
                     className={`px-4 py-2 rounded text-sm sm:text-base font-medium cursor-pointer transition-all ${filter === "incomplete"
-                            ? "bg-blue-500 text-white shadow"
-                            : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                        ? "bg-blue-500 text-white shadow"
+                        : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                         }`}
                 >
                     Incomplete
@@ -75,8 +109,8 @@ const TaskContainer = () => {
                 <button
                     onClick={() => setFilter("completed")}
                     className={`px-4 py-2 rounded text-sm sm:text-base font-medium cursor-pointer transition-all ${filter === "completed"
-                            ? "bg-blue-500 text-white shadow"
-                            : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                        ? "bg-blue-500 text-white shadow"
+                        : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                         }`}
                 >
                     Completed
@@ -91,12 +125,18 @@ const TaskContainer = () => {
                 </button>
             </div>
 
-            <TaskList tasks={filteredTasks} onToggle={toggleTask} onDelete={deleteTask} />
+            <TaskList
+                tasks={filteredTasks}
+                onToggle={toggleTask}
+                onDelete={deleteTask}
+                onEdit={handleEdit}       
+            />
 
             {isModalOpen && (
                 <AddTaskModal
-                    onAdd={addTask}
-                    onClose={() => setIsModalOpen(false)}
+                    onSave={handleSave}
+                    onClose={handleCloseModal}
+                    task={editingTask}
                 />
             )}
         </div>

@@ -1,6 +1,6 @@
 import TaskItem from "./TaskItem";
 
-const TaskList = ({ tasks, onToggle, onDelete }) => {
+const TaskList = ({ tasks, onToggle, onDelete, onEdit }) => {  // ← onEdit اضافه شود
     if (!tasks || tasks.length === 0) {
         return (
             <p className="text-gray-500 text-center mt-3 text-sm sm:text-base">
@@ -17,6 +17,7 @@ const TaskList = ({ tasks, onToggle, onDelete }) => {
                     task={task}
                     onToggle={onToggle}
                     onDelete={onDelete}
+                    onEdit={onEdit}               // ← onEdit پاس داده شود
                 />
             ))}
         </ul>

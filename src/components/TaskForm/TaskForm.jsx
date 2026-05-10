@@ -1,19 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const TaskForm = ({ onAdd }) => {
+const TaskForm = ({ onAdd, initialTask }) => {
     const [taskTitle, setTaskTitle] = useState("");
     const [date, setDate] = useState("");
     const [time, setTime] = useState("");
     const [taskPriority, setTaskPriority] = useState("");
 
+    // هرگاه initialTask تغییر کند (یعنی یک تسک برای ویرایش کلیک شود)، فیلدها را پر کن
+    useEffect(() => {
+        if (initialTask) {
+            setTaskTitle(initialTask.title);
+            setDate(initialTask.date || "");
+            setTime(initialTask.time || "");
+            setTaskPriority(initialTask.priority || "");
+        }
+    }, [initialTask]);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         if (taskTitle.trim() === "") return;
         onAdd({ title: taskTitle, date, time, priority: taskPriority });
-        setTaskPriority("");
-        setTaskTitle("");
-        setDate("");
-        setTime("");
+        // بعد از ثبت، فیلدها را خالی نکن! چون اگر ویرایش باشد، مودال بسته می‌شود و کامپوننت unmount می‌شود.
+        // اگر افزودن جدید باشد، با باز شدن دوباره مودال، initialTask برابر null است و useEffect خالی می‌کند.
     };
 
     return (
@@ -23,10 +31,7 @@ const TaskForm = ({ onAdd }) => {
         >
             {/* Title */}
             <div className="flex flex-col mb-4">
-                <label
-                    className="text-gray-500 font-bold mb-1"
-                    htmlFor="task-title"
-                >
+                <label className="text-gray-500 font-bold mb-1" htmlFor="task-title">
                     Title
                 </label>
                 <input
@@ -39,13 +44,10 @@ const TaskForm = ({ onAdd }) => {
                 />
             </div>
 
-            {/* Date & Time in one row on mobile too? Better stack on mobile, side by side on md */}
+            {/* Date & Time */}
             <div className="flex flex-col sm:flex-row gap-4 mb-4">
                 <div className="flex flex-col flex-1">
-                    <label
-                        className="text-gray-500 font-bold mb-1"
-                        htmlFor="task-date"
-                    >
+                    <label className="text-gray-500 font-bold mb-1" htmlFor="task-date">
                         Date
                     </label>
                     <input
@@ -57,10 +59,7 @@ const TaskForm = ({ onAdd }) => {
                     />
                 </div>
                 <div className="flex flex-col flex-1">
-                    <label
-                        className="text-gray-500 font-bold mb-1"
-                        htmlFor="task-time"
-                    >
+                    <label className="text-gray-500 font-bold mb-1" htmlFor="task-time">
                         Time
                     </label>
                     <input
@@ -75,10 +74,7 @@ const TaskForm = ({ onAdd }) => {
 
             {/* Priority */}
             <div className="flex flex-col mb-4">
-                <label
-                    className="text-gray-500 font-bold mb-1"
-                    htmlFor="task-priority"
-                >
+                <label className="text-gray-500 font-bold mb-1" htmlFor="task-priority">
                     Priority
                 </label>
                 <select
@@ -96,13 +92,13 @@ const TaskForm = ({ onAdd }) => {
                 </select>
             </div>
 
-            {/* Submit button centered */}
+            {/* Submit / Update button */}
             <div className="flex justify-center mt-4">
                 <button
                     type="submit"
                     className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded shadow transition capitalize cursor-pointer"
                 >
-                    Submit
+                    {initialTask ? "Update" : "Submit"}
                 </button>
             </div>
         </form>
