@@ -15,6 +15,7 @@ No backend, no database – purely frontend for now, perfect for learning and sh
 - ✅ State management with React hooks (`useState`)
 - ✅ Add `localStorage` persistence
 - ✅ Filter tasks (All / Completed / Incomplete)
+- ✅ Edit task
 - ✅ Clean component architecture (`TaskContainer`, `TaskForm`, `TaskList`, `TaskItem`, `AddTaskModal`)
 
 ## 🛠️ Tech Stack
@@ -37,7 +38,6 @@ The layout adjusts labels, padding, and font sizes for the best user experience.
 
 ## 📌 Future Improvements
 - [ ] Search by title
-- [ ] Edit task
 - [ ] Dark mode
 
 ---
